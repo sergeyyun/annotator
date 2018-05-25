@@ -178,3 +178,7 @@ ls anntools/data
 rm -rf anntools/data
 ls
 python annotator.py
+git status
+git add .
+git commit -m '7 done'
+git push origin master
