@@ -95,3 +95,86 @@ ls
 cd ..
 python annotate.py
 python annotator.py
+ls
+python annotatr.pyo
+python annotatr.py
+python annotator.py
+workon mpcs
+python annotator.py
+git init
+git remote add origin https://github.com/mpcs-cc/cp-sergeyyun.git
+ls
+git push -u origin master
+git push origin master
+git add .
+git commit -m "initial annotator code"
+git push origin master
+git push -u origin master
+rm -rf .git
+git init
+git commit
+git push origin master
+ls
+git rm -r
+git pull
+git remote add origin https://github.com/mpcs-cc/cp-sergeyyun.git
+git pull
+ls
+rmate annotator.py
+cd anntools
+ls
+rmate run.py
+cd ..
+git rm -r *
+ls
+git rm -r *
+ls
+python annotator.py
+git branch -D master
+git push origin --delete master
+ls
+cd .git
+ls
+cd ..
+git commit -m "test"
+git push origin master
+git push
+ls
+git remote add origin https://github.com/sergeyyun/web_server.git
+rm -rf .git
+git init
+git remote add origin https://github.com/sergeyyun/web_server.git
+ls
+rm -rf .git
+git init
+git remote add origin https://github.com/sergeyyun/annotator.git
+git add .
+git commit -m "first commit"
+git push origin master
+ls
+python annotator.py
+ls
+workon mpcs
+python annotator.py
+rmate annotator.py
+python annotator.py
+ls
+rmate anntools/run.py
+ls
+python annotator.py
+rmate anntools/run.py
+rmate annotator.py
+python annotator.py
+ls
+cd anntools
+ls
+cd data
+ls
+cd ..
+rm -rf data
+cd ..
+python annotator.py
+ls anntools/data
+rm -rf anntools/data
+ls
+python annotator.py
