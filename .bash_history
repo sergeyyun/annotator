@@ -182,3 +182,9 @@ git status
 git add .
 git commit -m '7 done'
 git push origin master
+workon mpcs
+rmate anntools/run.py
+git commit -m '7 done'
+git add .
+git commit -m '7 done'
+git push origin master
