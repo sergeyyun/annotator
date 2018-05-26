@@ -188,3 +188,11 @@ git commit -m '7 done'
 git add .
 git commit -m '7 done'
 git push origin master
+workon mpcs
+python annotator.py
+rmate anntools/run.py
+python annotator.py
+git status
+git add .
+git commit -m '8 done'
+git push origin master
