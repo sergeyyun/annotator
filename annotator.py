@@ -19,14 +19,16 @@ import os
 import re
 import shlex
 from pathlib import Path
-from ast import literal_eval
+import json
 
 AWS_SNS_JOB_REQUEST_QUEUE = 'syun0_job_requests'
 AWS_DYNAMODB_ANNOTATIONS_TABLE = "syun0_annotations"
+AWS_REGION_NAME = os.environ['AWS_REGION_NAME'] if ('AWS_REGION_NAME' in  os.environ) else "us-east-1"
+
 
 if __name__ == '__main__':
     #connect to SQS and get the message queue
-    sqs = boto3.resource('sqs', region_name='us-east-1')
+    sqs = boto3.resource('sqs', region_name=AWS_REGION_NAME)
     queue = sqs.get_queue_by_name(QueueName=AWS_SNS_JOB_REQUEST_QUEUE)
 
     while True:
@@ -34,16 +36,16 @@ if __name__ == '__main__':
         if(messages):
             for message in messages:
                 #read message body and extract the parameters for the annotator
-                body = literal_eval(message.body)
-                data = literal_eval(body.get('Message'))
-                input_file_name = data.get('input_file_name')
-                job_id = data.get('job_id')
-                s3_key_input_file = data.get('s3_key_input_file')
-                user_id = data.get('user_id')
-                user_email = data.get('user_email')
-                bucket = data.get('s3_inputs_bucket')
-                submit_time = data.get('submit_time')
-                job_status = data.get('job_status')
+                body = json.loads(message.body)
+                data = json.loads(body['Message'])
+                input_file_name = data['input_file_name']
+                job_id = data['job_id']
+                s3_key_input_file = data['s3_key_input_file']
+                user_id = data['user_id']
+                user_email = data['user_email']
+                bucket = data['s3_inputs_bucket']
+                submit_time = data['submit_time']
+                job_status = data['job_status']
 
                 #download file from S3 and save it to the anntools/data/job_id folder
                 s3 = boto3.resource('s3')
@@ -66,7 +68,7 @@ if __name__ == '__main__':
                     subprocess.Popen(args, cwd="anntools/")
                     #update job status to running
                     try:
-                        dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
+                        dynamodb = boto3.resource('dynamodb', region_name=AWS_REGION_NAME)
                         ann_table = dynamodb.Table(AWS_DYNAMODB_ANNOTATIONS_TABLE)
                     except Exception:
                         print("Error: failed to connect to the database")

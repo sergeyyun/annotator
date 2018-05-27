@@ -196,3 +196,22 @@ git status
 git add .
 git commit -m '8 done'
 git push origin master
+workon mpcs
+python annotator.py
+rmate annotator.py
+rmate anntools/run.py
+python annotator.py
+ls
+rmate annotator.py
+rmate anntools/run.py
+python annotator.py
+git status
+git add .
+git commit -m '1-9 done'
+git push origin master
+python annotator.py
+rmate annotator.py
+python annotator.py
+ls
+ls anntools
+rmate anntools/run.py
