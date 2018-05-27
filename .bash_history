@@ -215,3 +215,7 @@ python annotator.py
 ls
 ls anntools
 rmate anntools/run.py
+git add .
+ssh -i ~/.ssh/syun0.pem ubuntu@ec2-34-233-123-201.compute-1.amazonaws.com
+git commit -m 'error checks, refactoring'
+git push origin master

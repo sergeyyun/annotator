@@ -20,16 +20,15 @@ import re
 import shlex
 from pathlib import Path
 import json
+from configparser import ConfigParser
 
-AWS_SNS_JOB_REQUEST_QUEUE = 'syun0_job_requests'
-AWS_DYNAMODB_ANNOTATIONS_TABLE = "syun0_annotations"
-AWS_REGION_NAME = os.environ['AWS_REGION_NAME'] if ('AWS_REGION_NAME' in  os.environ) else "us-east-1"
-
+parser = ConfigParser()
+parser.read('ann_config.ini')
 
 if __name__ == '__main__':
     #connect to SQS and get the message queue
-    sqs = boto3.resource('sqs', region_name=AWS_REGION_NAME)
-    queue = sqs.get_queue_by_name(QueueName=AWS_SNS_JOB_REQUEST_QUEUE)
+    sqs = boto3.resource('sqs', region_name=parser.get('configuration_variables', 'AWS_REGION_NAME'))
+    queue = sqs.get_queue_by_name(QueueName=parser.get('configuration_variables', 'AWS_SNS_JOB_REQUEST_QUEUE'))
 
     while True:
         messages = queue.receive_messages(WaitTimeSeconds=20)
@@ -68,8 +67,8 @@ if __name__ == '__main__':
                     subprocess.Popen(args, cwd="anntools/")
                     #update job status to running
                     try:
-                        dynamodb = boto3.resource('dynamodb', region_name=AWS_REGION_NAME)
-                        ann_table = dynamodb.Table(AWS_DYNAMODB_ANNOTATIONS_TABLE)
+                        dynamodb = boto3.resource('dynamodb', region_name=parser.get('configuration_variables', 'AWS_REGION_NAME'))
+                        ann_table = dynamodb.Table(parser.get('configuration_variables', 'AWS_DYNAMODB_ANNOTATIONS_TABLE'))
                     except Exception:
                         print("Error: failed to connect to the database")
 
